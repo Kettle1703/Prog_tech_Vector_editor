@@ -1,0 +1,303 @@
+﻿<Window x:Class="vector_editor.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="Vector Editor"
+        Height="760"
+        Width="1250"
+        MinHeight="640"
+        MinWidth="980"
+        FontFamily="Bahnschrift"
+        UseLayoutRounding="True"
+        Background="#EDF2F7">
+    <Window.Resources>
+        <LinearGradientBrush x:Key="window_background_brush" StartPoint="0,0" EndPoint="1,1">
+            <GradientStop Color="#F8FBFD" Offset="0" />
+            <GradientStop Color="#E4EDF5" Offset="1" />
+        </LinearGradientBrush>
+
+        <Style x:Key="toolbar_button_style" TargetType="Button">
+            <Setter Property="Margin" Value="0,0,8,8" />
+            <Setter Property="Padding" Value="12,7" />
+            <Setter Property="FontSize" Value="13" />
+            <Setter Property="Background" Value="#EEF2F6" />
+            <Setter Property="BorderBrush" Value="#CAD5E2" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="MinWidth" Value="105" />
+        </Style>
+
+        <Style x:Key="file_button_style" TargetType="Button" BasedOn="{StaticResource toolbar_button_style}">
+            <Setter Property="Background" Value="#F4F7FA" />
+        </Style>
+
+        <Style x:Key="property_text_box_style" TargetType="TextBox">
+            <Setter Property="Margin" Value="0,4,0,10" />
+            <Setter Property="Padding" Value="8,5" />
+            <Setter Property="BorderBrush" Value="#B8C4D0" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="FontSize" Value="13" />
+        </Style>
+    </Window.Resources>
+
+    <Grid Background="{StaticResource window_background_brush}">
+        <Grid Margin="14">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="300" />
+            </Grid.ColumnDefinitions>
+
+            <Border Grid.Row="0"
+                    Grid.ColumnSpan="2"
+                    Background="#FDFEFE"
+                    BorderBrush="#CFD8E3"
+                    BorderThickness="1"
+                    Padding="10,8"
+                    CornerRadius="8">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel Grid.Column="0"
+                                Orientation="Horizontal"
+                                VerticalAlignment="Center">
+                        <Menu Margin="0,0,8,8"
+                              Background="Transparent"
+                              BorderThickness="0"
+                              FontSize="13"
+                              VerticalAlignment="Center">
+                            <MenuItem Header="Файл" Padding="12,7">
+                                <MenuItem Header="Новый проект" Click="New_document_button_click" />
+                                <MenuItem Header="Открыть проект (.xml)..." Click="Open_document_button_click" />
+                                <Separator />
+                                <MenuItem Header="Сохранить проект (.xml)..." Click="Save_document_button_click" />
+                                <MenuItem Header="Экспортировать холст (.png)..." Click="Export_png_button_click" />
+                                <MenuItem Header="Экспортировать вектор (.svg)..." Click="Export_svg_button_click" />
+                            </MenuItem>
+                        </Menu>
+
+                        <Rectangle Width="1" Height="30" Fill="#D7E0EA" Margin="4,0,10,8" />
+
+                        <Button x:Name="select_tool_button"
+                                Style="{StaticResource toolbar_button_style}"
+                                Content="Выбор"
+                                ToolTip="Режим выбора: кликните по фигуре, чтобы редактировать и перетаскивать"
+                                Click="Select_tool_button_click" />
+                        <Button x:Name="rectangle_tool_button"
+                                Style="{StaticResource toolbar_button_style}"
+                                Content="Прямоугольник"
+                                Click="Rectangle_tool_button_click" />
+                        <Button x:Name="ellipse_tool_button"
+                                Style="{StaticResource toolbar_button_style}"
+                                Content="Эллипс"
+                                Click="Ellipse_tool_button_click" />
+                        <Button x:Name="line_tool_button"
+                                Style="{StaticResource toolbar_button_style}"
+                                Content="Линия"
+                                Click="Line_tool_button_click" />
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="1"
+                                Margin="12,0,0,0"
+                                Orientation="Horizontal"
+                                VerticalAlignment="Center">
+                        <TextBlock Margin="0,0,6,8"
+                                   VerticalAlignment="Center"
+                                   FontSize="12"
+                                   Foreground="#4A6078"
+                                   Text="Режим:" />
+                        <TextBlock x:Name="current_mode_text_block"
+                                   Margin="0,0,12,8"
+                                   VerticalAlignment="Center"
+                                   FontSize="12"
+                                   FontWeight="SemiBold"
+                                   Foreground="#2C425A"
+                                   Text="Выбор" />
+                        <TextBlock Margin="0,0,8,8"
+                                   VerticalAlignment="Center"
+                                   FontSize="13"
+                                   Foreground="#304255"
+                                   Text="Масштаб" />
+                        <Slider x:Name="zoom_slider"
+                                Width="130"
+                                Margin="0,0,8,8"
+                                Minimum="0.25"
+                                Maximum="4"
+                                Value="1"
+                                TickFrequency="0.25"
+                                IsSnapToTickEnabled="False"
+                                ValueChanged="Zoom_slider_value_changed" />
+                        <TextBlock x:Name="zoom_value_text_block"
+                                   Width="58"
+                                   Margin="0,0,8,8"
+                                   VerticalAlignment="Center"
+                                   FontWeight="SemiBold"
+                                   Foreground="#304255"
+                                   Text="100%" />
+                        <Button x:Name="zoom_reset_button"
+                                Style="{StaticResource file_button_style}"
+                                MinWidth="80"
+                                Content="100%"
+                                Click="Zoom_reset_button_click" />
+                    </StackPanel>
+                </Grid>
+            </Border>
+
+            <Border Grid.Row="1"
+                    Margin="0,12,12,0"
+                    BorderBrush="#A5B6C7"
+                    BorderThickness="2"
+                    Background="#D3DEE9"
+                    CornerRadius="8"
+                    Padding="8">
+                <ScrollViewer HorizontalScrollBarVisibility="Auto"
+                              VerticalScrollBarVisibility="Auto"
+                              Background="#C8D3DF"
+                              Focusable="False">
+                    <Border Margin="14"
+                            x:Name="drawing_canvas_frame_border"
+                            BorderBrush="#6A7E93"
+                            BorderThickness="2"
+                            Background="White"
+                            ClipToBounds="True"
+                            SnapsToDevicePixels="True"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Top"
+                            CornerRadius="2">
+                        <Canvas x:Name="drawing_canvas"
+                                Width="1800"
+                                Height="1100"
+                                Background="White"
+                                ClipToBounds="True"
+                                SnapsToDevicePixels="True"
+                                MouseLeftButtonDown="Drawing_canvas_mouse_left_button_down"
+                                MouseMove="Drawing_canvas_mouse_move"
+                                MouseLeftButtonUp="Drawing_canvas_mouse_left_button_up"
+                                PreviewMouseWheel="Drawing_canvas_preview_mouse_wheel" />
+                    </Border>
+                </ScrollViewer>
+            </Border>
+
+            <Border Grid.Row="1"
+                    Grid.Column="1"
+                    Margin="0,12,0,0"
+                    BorderBrush="#CFD8E3"
+                    BorderThickness="1"
+                    Background="#FCFEFF"
+                    CornerRadius="8"
+                    Padding="14">
+                <ScrollViewer VerticalScrollBarVisibility="Auto"
+                              HorizontalScrollBarVisibility="Disabled"
+                              Focusable="False">
+                    <StackPanel>
+                        <TextBlock FontSize="18"
+                                   FontWeight="SemiBold"
+                                   Foreground="#243447"
+                                   Text="Параметры фигуры" />
+                        <TextBlock x:Name="selected_figure_name_text_block"
+                                   Margin="0,6,0,0"
+                                   FontSize="13"
+                                   Foreground="#587089"
+                                   Text="Ничего не выбрано" />
+
+                        <Separator Margin="0,12,0,12" />
+
+                        <TextBlock x:Name="position_x_label_text_block"
+                                   FontSize="12"
+                                   Foreground="#2F4358"
+                                   Text="X" />
+                        <TextBox x:Name="position_x_text_box" Style="{StaticResource property_text_box_style}" />
+
+                        <TextBlock x:Name="position_y_label_text_block"
+                                   FontSize="12"
+                                   Foreground="#2F4358"
+                                   Text="Y" />
+                        <TextBox x:Name="position_y_text_box" Style="{StaticResource property_text_box_style}" />
+
+                        <TextBlock x:Name="size_width_label_text_block"
+                                   FontSize="12"
+                                   Foreground="#2F4358"
+                                   Text="Ширина" />
+                        <TextBox x:Name="size_width_text_box" Style="{StaticResource property_text_box_style}" />
+
+                        <TextBlock x:Name="size_height_label_text_block"
+                                   FontSize="12"
+                                   Foreground="#2F4358"
+                                   Text="Высота" />
+                        <TextBox x:Name="size_height_text_box" Style="{StaticResource property_text_box_style}" />
+
+                        <TextBlock FontSize="12"
+                                   Foreground="#2F4358"
+                                   Text="Цвет линии" />
+                        <ComboBox x:Name="stroke_color_combo_box"
+                                  Margin="0,4,0,10"
+                                  FontSize="13"
+                                  SelectionChanged="Stroke_color_combo_box_selection_changed">
+                            <ComboBoxItem Content="Графитовый" Tag="#1F2937" />
+                            <ComboBoxItem Content="Индиго" Tag="#1E3A8A" />
+                            <ComboBoxItem Content="Бирюзовый" Tag="#0F766E" />
+                            <ComboBoxItem Content="Красный" Tag="#B91C1C" />
+                            <ComboBoxItem Content="Оранжевый" Tag="#C2410C" />
+                            <ComboBoxItem Content="Зеленый" Tag="#166534" />
+                        </ComboBox>
+
+                        <TextBlock FontSize="12"
+                                   Foreground="#2F4358"
+                                   Text="Толщина линии" />
+                        <Slider x:Name="stroke_thickness_slider"
+                                Minimum="1"
+                                Maximum="12"
+                                Value="2"
+                                TickFrequency="1"
+                                IsSnapToTickEnabled="True"
+                                ValueChanged="Stroke_thickness_slider_value_changed" />
+                        <TextBlock x:Name="stroke_thickness_value_text_block"
+                                   Margin="0,4,0,12"
+                                   Foreground="#5B7086"
+                                   Text="2" />
+
+                        <Button x:Name="apply_properties_button"
+                                Margin="0,0,0,8"
+                                Padding="10,7"
+                                Background="#DCE9F8"
+                                BorderBrush="#B9CEE8"
+                                BorderThickness="1"
+                                Cursor="Hand"
+                                Content="Применить параметры"
+                                Click="Apply_properties_button_click" />
+
+                        <Button x:Name="delete_selected_figure_button"
+                                Margin="0,0,0,6"
+                                Padding="10,7"
+                                Background="#FCE6E6"
+                                BorderBrush="#EAB9B9"
+                                BorderThickness="1"
+                                Cursor="Hand"
+                                Content="Удалить фигуру"
+                                Click="Delete_selected_figure_button_click" />
+
+                        <Border Margin="0,8,0,0"
+                                Padding="10"
+                                Background="#F4F8FC"
+                                BorderBrush="#D4E0EC"
+                                BorderThickness="1"
+                                CornerRadius="6">
+                            <TextBlock FontSize="12"
+                                       Foreground="#52687D"
+                                       TextWrapping="Wrap"
+                                       Text="Подсказка: для редактирования любой фигуры нажмите кнопку 'Выбор', затем кликните по нужной фигуре. Удерживайте Ctrl и крутите колесо мыши для изменения масштаба." />
+                        </Border>
+                    </StackPanel>
+                </ScrollViewer>
+            </Border>
+        </Grid>
+    </Grid>
+</Window>
