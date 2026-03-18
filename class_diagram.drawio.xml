@@ -1,0 +1,165 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 YaBrowser/26.3.0.0 Safari/537.36" version="29.6.3">
+  <diagram id="uml-class-diagram" name="Диаграмма классов">
+    <mxGraphModel dx="1425" dy="858" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="3000" pageHeight="2000" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="enum_tool_mode" parent="1" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;whiteSpace=wrap;fillColor=#fff2cc;strokeColor=#d6b656;" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;i&gt;&amp;lt;&amp;lt;enumeration&amp;gt;&amp;gt;&lt;/i&gt;&lt;br/&gt;&lt;b&gt;Tool_mode&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;/&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;Select&lt;br/&gt;Draw_rectangle&lt;br/&gt;Draw_ellipse&lt;br/&gt;Draw_line&lt;/p&gt;" vertex="1">
+          <mxGeometry height="140" width="180" x="-230" y="5" as="geometry" />
+        </mxCell>
+        <mxCell id="class_main_window" parent="1" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;whiteSpace=wrap;fillColor=#e1d5e7;strokeColor=#9673a6;" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;b&gt;MainWindow&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;/&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;- document_file_service : Document_file_service&lt;br/&gt;- canvas_export_service : Canvas_export_service&lt;br/&gt;- svg_export_service : Svg_export_service&lt;br/&gt;- figure_models : List&amp;lt;Figure_model&amp;gt;&lt;br/&gt;- shape_figure_map : Dictionary&amp;lt;Shape, Figure_model&amp;gt;&lt;br/&gt;- current_tool_mode : Tool_mode&lt;br/&gt;- selected_figure_model : Figure_model&lt;br/&gt;- selected_shape_visual : Shape&lt;/p&gt;&lt;hr size=&quot;1&quot;/&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;- Set_tool_mode(Tool_mode)&lt;br/&gt;- Start_new_figure_drawing(Point)&lt;br/&gt;- Add_figure_to_canvas(Figure_model)&lt;br/&gt;- Select_figure_by_shape(Shape)&lt;br/&gt;- Clear_document()&lt;br/&gt;- Update_property_panel_state()&lt;br/&gt;- Refresh_property_panel_from_selection()&lt;/p&gt;" vertex="1">
+          <mxGeometry height="310" width="340" x="-60" y="255" as="geometry" />
+        </mxCell>
+        <mxCell id="class_factory" parent="1" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;whiteSpace=wrap;fillColor=#d5e8d4;strokeColor=#82b366;" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;i&gt;&amp;lt;&amp;lt;static&amp;gt;&amp;gt;&lt;/i&gt;&lt;br/&gt;&lt;b&gt;Figure_factory_service&lt;/b&gt;&lt;br/&gt;&lt;i style=&quot;color:#666;&quot;&gt;(Factory Method)&lt;/i&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;/&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ Create_figure_for_tool(&lt;br/&gt;&amp;nbsp;&amp;nbsp;Tool_mode, Point,&lt;br/&gt;&amp;nbsp;&amp;nbsp;string, double) : Figure_model&lt;/p&gt;" vertex="1">
+          <mxGeometry height="130" width="270" x="30" y="10" as="geometry" />
+        </mxCell>
+        <mxCell id="class_figure_model" parent="1" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;whiteSpace=wrap;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=2;" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;i&gt;&amp;lt;&amp;lt;abstract&amp;gt;&amp;gt;&lt;/i&gt;&lt;br/&gt;&lt;b&gt;Figure_model&lt;/b&gt;&lt;br/&gt;&lt;i style=&quot;color:#666;&quot;&gt;(Template Method, Strategy)&lt;/i&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;/&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ stroke_color_hex : string&lt;br/&gt;+ stroke_thickness : double&lt;/p&gt;&lt;hr size=&quot;1&quot;/&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ Create_shape_visual() : Shape&lt;br/&gt;+ Apply_to_shape_visual(Shape)&lt;br/&gt;+ Update_geometry_from_drag(Point, Point)&lt;br/&gt;+ Move_by(double, double)&lt;br/&gt;+ Set_position_and_size(...)&lt;br/&gt;+ Get_position_and_size(...)&lt;br/&gt;+ To_record() : Figure_record&lt;br/&gt;+ Get_figure_name() : string&lt;br/&gt;+ Normalize_color_hex(string) : string&lt;br/&gt;# Build_stroke_brush() : Brush&lt;br/&gt;# Apply_common_style(Shape)&lt;/p&gt;" vertex="1">
+          <mxGeometry height="320" width="310" x="440" y="250" as="geometry" />
+        </mxCell>
+        <mxCell id="class_figure_record" parent="1" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;whiteSpace=wrap;fillColor=#f8cecc;strokeColor=#b85450;" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;b&gt;Figure_record&lt;/b&gt;&lt;br/&gt;&lt;i style=&quot;color:#666;&quot;&gt;(DTO)&lt;/i&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;/&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ kind_code : string&lt;br/&gt;+ first_x : double&lt;br/&gt;+ first_y : double&lt;br/&gt;+ second_x : double&lt;br/&gt;+ second_y : double&lt;br/&gt;+ stroke_color_hex : string&lt;br/&gt;+ stroke_thickness : double&lt;/p&gt;" vertex="1">
+          <mxGeometry height="200" width="220" x="885" y="370" as="geometry" />
+        </mxCell>
+        <mxCell id="class_vector_doc_record" parent="1" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;whiteSpace=wrap;fillColor=#f8cecc;strokeColor=#b85450;" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;b&gt;Vector_document_record&lt;/b&gt;&lt;br/&gt;&lt;i style=&quot;color:#666;&quot;&gt;(DTO)&lt;/i&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;/&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ figure_records : List&amp;lt;Figure_record&amp;gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;/&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ Vector_document_record()&lt;/p&gt;" vertex="1">
+          <mxGeometry height="120" width="270" x="1170" y="410" as="geometry" />
+        </mxCell>
+        <mxCell id="class_mapper" parent="1" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;whiteSpace=wrap;fillColor=#d5e8d4;strokeColor=#82b366;" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;i&gt;&amp;lt;&amp;lt;static&amp;gt;&amp;gt;&lt;/i&gt;&lt;br/&gt;&lt;b&gt;Figure_mapper_service&lt;/b&gt;&lt;br/&gt;&lt;i style=&quot;color:#666;&quot;&gt;(Data Mapper)&lt;/i&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;/&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ Create_model_from_record(&lt;br/&gt;&amp;nbsp;&amp;nbsp;Figure_record) : Figure_model&lt;/p&gt;" vertex="1">
+          <mxGeometry height="110" width="270" x="860" y="680" as="geometry" />
+        </mxCell>
+        <mxCell id="class_doc_service" parent="1" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;whiteSpace=wrap;fillColor=#d5e8d4;strokeColor=#82b366;" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;b&gt;Document_file_service&lt;/b&gt;&lt;br/&gt;&lt;i style=&quot;color:#666;&quot;&gt;(Repository)&lt;/i&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;/&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ Save_document_to_file(&lt;br/&gt;&amp;nbsp;&amp;nbsp;string, IList&amp;lt;Figure_model&amp;gt;)&lt;br/&gt;+ Load_document_from_file(&lt;br/&gt;&amp;nbsp;&amp;nbsp;string) : List&amp;lt;Figure_model&amp;gt;&lt;/p&gt;" vertex="1">
+          <mxGeometry height="140" width="260" x="530" y="680" as="geometry" />
+        </mxCell>
+        <mxCell id="class_canvas_export" parent="1" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;whiteSpace=wrap;fillColor=#d5e8d4;strokeColor=#82b366;" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;b&gt;Canvas_export_service&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;/&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ Export_canvas_to_png(&lt;br/&gt;&amp;nbsp;&amp;nbsp;FrameworkElement, string)&lt;/p&gt;" vertex="1">
+          <mxGeometry height="90" width="260" x="-130" y="680" as="geometry" />
+        </mxCell>
+        <mxCell id="class_svg_export" parent="1" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;whiteSpace=wrap;fillColor=#d5e8d4;strokeColor=#82b366;" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;b&gt;Svg_export_service&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;/&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ Export_figures_to_svg(&lt;br/&gt;&amp;nbsp;&amp;nbsp;IList&amp;lt;Figure_model&amp;gt;,&lt;br/&gt;&amp;nbsp;&amp;nbsp;double, double, string)&lt;br/&gt;- Write_svg_root_element(...)&lt;br/&gt;- Write_figure_element(...)&lt;br/&gt;- Write_rectangle_element(...)&lt;br/&gt;- Write_ellipse_element(...)&lt;br/&gt;- Write_line_element(...)&lt;br/&gt;- Write_stroke_attributes(...)&lt;br/&gt;- Format_number(double) : string&lt;/p&gt;" vertex="1">
+          <mxGeometry height="250" width="260" x="200" y="680" as="geometry" />
+        </mxCell>
+        <mxCell id="class_rectangle" parent="1" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;whiteSpace=wrap;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;b&gt;Rectangle_figure_model&lt;/b&gt;&lt;br/&gt;&lt;i style=&quot;color:#666;&quot;&gt;(Strategy)&lt;/i&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;/&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ left : double&lt;br/&gt;+ top : double&lt;br/&gt;+ width : double&lt;br/&gt;+ height : double&lt;/p&gt;&lt;hr size=&quot;1&quot;/&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ Create_shape_visual() : Shape&lt;br/&gt;+ Apply_to_shape_visual(Shape)&lt;br/&gt;+ Update_geometry_from_drag(...)&lt;br/&gt;+ Move_by(double, double)&lt;br/&gt;+ Set_position_and_size(...)&lt;br/&gt;+ Get_position_and_size(...)&lt;br/&gt;+ To_record() : Figure_record&lt;br/&gt;+ Get_figure_name() : string&lt;/p&gt;" vertex="1">
+          <mxGeometry height="290" width="260" x="380" y="-140" as="geometry" />
+        </mxCell>
+        <mxCell id="class_ellipse" parent="1" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;whiteSpace=wrap;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;b&gt;Ellipse_figure_model&lt;/b&gt;&lt;br/&gt;&lt;i style=&quot;color:#666;&quot;&gt;(Strategy)&lt;/i&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;/&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ left : double&lt;br/&gt;+ top : double&lt;br/&gt;+ width : double&lt;br/&gt;+ height : double&lt;/p&gt;&lt;hr size=&quot;1&quot;/&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ Create_shape_visual() : Shape&lt;br/&gt;+ Apply_to_shape_visual(Shape)&lt;br/&gt;+ Update_geometry_from_drag(...)&lt;br/&gt;+ Move_by(double, double)&lt;br/&gt;+ Set_position_and_size(...)&lt;br/&gt;+ Get_position_and_size(...)&lt;br/&gt;+ To_record() : Figure_record&lt;br/&gt;+ Get_figure_name() : string&lt;/p&gt;" vertex="1">
+          <mxGeometry height="290" width="260" x="690" y="-140" as="geometry" />
+        </mxCell>
+        <mxCell id="class_line" parent="1" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;whiteSpace=wrap;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;b&gt;Line_figure_model&lt;/b&gt;&lt;br/&gt;&lt;i style=&quot;color:#666;&quot;&gt;(Strategy)&lt;/i&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;/&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ first_x : double&lt;br/&gt;+ first_y : double&lt;br/&gt;+ second_x : double&lt;br/&gt;+ second_y : double&lt;/p&gt;&lt;hr size=&quot;1&quot;/&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ Create_shape_visual() : Shape&lt;br/&gt;+ Apply_to_shape_visual(Shape)&lt;br/&gt;+ Update_geometry_from_drag(...)&lt;br/&gt;+ Move_by(double, double)&lt;br/&gt;+ Set_position_and_size(...)&lt;br/&gt;+ Get_position_and_size(...)&lt;br/&gt;+ To_record() : Figure_record&lt;br/&gt;+ Get_figure_name() : string&lt;/p&gt;" vertex="1">
+          <mxGeometry height="290" width="260" x="980" y="40" as="geometry" />
+        </mxCell>
+        <mxCell id="rel_rect_inherit" edge="1" parent="1" source="class_rectangle" style="endArrow=block;endFill=0;endSize=16;html=1;" target="class_figure_model">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="rel_ellipse_inherit" edge="1" parent="1" source="class_ellipse" style="endArrow=block;endFill=0;endSize=16;html=1;" target="class_figure_model">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="rel_line_inherit" edge="1" parent="1" source="class_line" style="endArrow=block;endFill=0;endSize=16;html=1;" target="class_figure_model">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="rel_model_to_record" edge="1" parent="1" source="class_figure_model" style="endArrow=open;endSize=12;dashed=1;html=1;" target="class_figure_record">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="rel_model_to_record_label" connectable="0" parent="rel_model_to_record" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=11;" value="&amp;lt;&amp;lt;creates&amp;gt;&amp;gt;" vertex="1">
+          <mxGeometry relative="1" x="-0.2" as="geometry">
+            <mxPoint x="10" y="-10" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="rel_doc_fig_record" edge="1" parent="1" source="class_figure_record" style="endArrow=diamond;endFill=1;endSize=12;html=1;" target="class_vector_doc_record">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="rel_doc_fig_record_label" connectable="0" parent="rel_doc_fig_record" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=12;" value="*" vertex="1">
+          <mxGeometry relative="1" x="-0.7" as="geometry">
+            <mxPoint x="-6" y="-12" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="rel_mw_tool_mode" edge="1" parent="1" source="class_main_window" style="endArrow=open;endSize=12;dashed=1;html=1;" target="enum_tool_mode">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="rel_mw_figure_models" edge="1" parent="1" source="class_main_window" style="endArrow=open;endFill=0;endSize=12;html=1;startArrow=diamond;startFill=0;startSize=12;" target="class_figure_model">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="rel_mw_figure_models_label" connectable="0" parent="rel_mw_figure_models" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=11;" value="figure_models *" vertex="1">
+          <mxGeometry relative="1" x="0.2" as="geometry">
+            <mxPoint y="-14" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="rel_mw_factory" edge="1" parent="1" source="class_main_window" style="endArrow=open;endSize=12;dashed=1;html=1;" target="class_factory">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="rel_mw_factory_label" connectable="0" parent="rel_mw_factory" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=11;" value="&amp;lt;&amp;lt;use&amp;gt;&amp;gt;" vertex="1">
+          <mxGeometry relative="1" x="-0.2" as="geometry">
+            <mxPoint y="-10" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="rel_mw_doc_svc" edge="1" parent="1" source="class_main_window" style="endArrow=open;endSize=12;dashed=1;html=1;" target="class_doc_service">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="rel_mw_doc_svc_label" connectable="0" parent="rel_mw_doc_svc" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=11;" value="&amp;lt;&amp;lt;use&amp;gt;&amp;gt;" vertex="1">
+          <mxGeometry relative="1" x="-0.2" as="geometry">
+            <mxPoint y="-10" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="rel_mw_canvas_export" edge="1" parent="1" source="class_main_window" style="endArrow=open;endSize=12;dashed=1;html=1;" target="class_canvas_export">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="rel_mw_svg_export" edge="1" parent="1" source="class_main_window" style="endArrow=open;endSize=12;dashed=1;html=1;" target="class_svg_export">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="rel_factory_model" edge="1" parent="1" source="class_factory" style="endArrow=open;endSize=12;dashed=1;html=1;" target="class_figure_model">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="rel_factory_model_label" connectable="0" parent="rel_factory_model" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=11;" value="&amp;lt;&amp;lt;creates&amp;gt;&amp;gt;" vertex="1">
+          <mxGeometry relative="1" x="-0.2" as="geometry">
+            <mxPoint x="10" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="rel_factory_tool" edge="1" parent="1" source="class_factory" style="endArrow=open;endSize=12;dashed=1;html=1;" target="enum_tool_mode">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="rel_mapper_record" edge="1" parent="1" source="class_mapper" style="endArrow=open;endSize=12;dashed=1;html=1;" target="class_figure_record">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="rel_mapper_model" edge="1" parent="1" source="class_mapper" style="endArrow=open;endSize=12;dashed=1;html=1;" target="class_figure_model">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="rel_mapper_model_label" connectable="0" parent="rel_mapper_model" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=11;" value="&amp;lt;&amp;lt;creates&amp;gt;&amp;gt;" vertex="1">
+          <mxGeometry relative="1" x="-0.2" as="geometry">
+            <mxPoint y="-10" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="rel_doc_mapper" edge="1" parent="1" source="class_doc_service" style="endArrow=open;endSize=12;dashed=1;html=1;" target="class_mapper">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="rel_svg_model" edge="1" parent="1" source="class_svg_export" style="endArrow=open;endSize=12;dashed=1;html=1;" target="class_figure_model">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="iface_figure_factory" parent="1" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;whiteSpace=wrap;fillColor=#f5f5f5;strokeColor=#82b366;strokeWidth=2;dashed=1;" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;i&gt;&amp;lt;&amp;lt;interface&amp;gt;&amp;gt;&lt;/i&gt;&lt;br/&gt;&lt;b&gt;IFigure_factory&lt;/b&gt;&lt;br/&gt;&lt;i style=&quot;color:#666;&quot;&gt;(Factory Method)&lt;/i&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;/&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ Create_figure_for_tool(...) : Figure_model&lt;/p&gt;" vertex="1">
+          <mxGeometry height="90" width="270" x="30" y="-140" as="geometry" />
+        </mxCell>
+        <mxCell id="iface_document_service" parent="1" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;whiteSpace=wrap;fillColor=#f5f5f5;strokeColor=#82b366;strokeWidth=2;dashed=1;" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;i&gt;&amp;lt;&amp;lt;interface&amp;gt;&amp;gt;&lt;/i&gt;&lt;br/&gt;&lt;b&gt;IDocument_service&lt;/b&gt;&lt;br/&gt;&lt;i style=&quot;color:#666;&quot;&gt;(Repository)&lt;/i&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;/&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ Save_document_to_file(...)&lt;br/&gt;+ Load_document_from_file(...) : List&lt;/p&gt;" vertex="1">
+          <mxGeometry height="110" width="260" x="530" y="870" as="geometry" />
+        </mxCell>
+        <mxCell id="iface_figure_mapper" parent="1" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;whiteSpace=wrap;fillColor=#f5f5f5;strokeColor=#82b366;strokeWidth=2;dashed=1;" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;i&gt;&amp;lt;&amp;lt;interface&amp;gt;&amp;gt;&lt;/i&gt;&lt;br/&gt;&lt;b&gt;IFigure_mapper&lt;/b&gt;&lt;br/&gt;&lt;i style=&quot;color:#666;&quot;&gt;(Data Mapper)&lt;/i&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;/&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ Create_model_from_record(...) : Figure_model&lt;/p&gt;" vertex="1">
+          <mxGeometry height="90" width="270" x="860" y="840" as="geometry" />
+        </mxCell>
+        <mxCell id="iface_canvas_export" parent="1" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;whiteSpace=wrap;fillColor=#f5f5f5;strokeColor=#82b366;strokeWidth=2;dashed=1;" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;i&gt;&amp;lt;&amp;lt;interface&amp;gt;&amp;gt;&lt;/i&gt;&lt;br/&gt;&lt;b&gt;ICanvas_export_service&lt;/b&gt;&lt;br/&gt;&lt;i style=&quot;color:#666;&quot;&gt;(Strategy)&lt;/i&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;/&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ Export_canvas_to_png(...)&lt;/p&gt;" vertex="1">
+          <mxGeometry height="90" width="260" x="-130" y="810" as="geometry" />
+        </mxCell>
+        <mxCell id="iface_svg_export" parent="1" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;whiteSpace=wrap;fillColor=#f5f5f5;strokeColor=#82b366;strokeWidth=2;dashed=1;" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;i&gt;&amp;lt;&amp;lt;interface&amp;gt;&amp;gt;&lt;/i&gt;&lt;br/&gt;&lt;b&gt;ISvg_export_service&lt;/b&gt;&lt;br/&gt;&lt;i style=&quot;color:#666;&quot;&gt;(Strategy)&lt;/i&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;/&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ Export_figures_to_svg(...)&lt;/p&gt;" vertex="1">
+          <mxGeometry height="90" width="260" x="200" y="990" as="geometry" />
+        </mxCell>
+        <mxCell id="rel_factory_impl" edge="1" parent="1" source="class_factory" style="endArrow=block;endFill=0;endSize=16;dashed=1;html=1;" target="iface_figure_factory">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="rel_doc_svc_impl" edge="1" parent="1" source="class_doc_service" style="endArrow=block;endFill=0;endSize=16;dashed=1;html=1;" target="iface_document_service">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="rel_mapper_impl" edge="1" parent="1" source="class_mapper" style="endArrow=block;endFill=0;endSize=16;dashed=1;html=1;" target="iface_figure_mapper">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="rel_canvas_export_impl" edge="1" parent="1" source="class_canvas_export" style="endArrow=block;endFill=0;endSize=16;dashed=1;html=1;" target="iface_canvas_export">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="rel_svg_export_impl" edge="1" parent="1" source="class_svg_export" style="endArrow=block;endFill=0;endSize=16;dashed=1;html=1;" target="iface_svg_export">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
